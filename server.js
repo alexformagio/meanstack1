@@ -8,12 +8,24 @@ console.log('Server running at http://127.0.0.1:1337/');
     */
 
 var express = require('express');
+var mongojs = require('mongojs');
+var bodyParser = require('body-parser');
+
 var app = express();
+var db = mongojs('contactlist',['contactlist']);
+
+app.use(express.static(__dirname + "/public"));
+app.use(bodyParser.json());
 
 app.get('/contactlist',function(req, res){
     console.log('I received a get request');
 
-    var person1 = {
+    db.contactlist.find(function(err,docs){
+        console.log(docs);
+        res.json(docs);
+    });
+
+    /*var person1 = {
         name:'Alexandre',
         email: 'alex@email.com',
         number:'(11)1111-1111'
@@ -38,10 +50,14 @@ app.get('/contactlist',function(req, res){
     };
 
     var contactlist = [person1,person2,person3,person4];
-    res.json(contactlist);
+    res.json(contactlist);*/
+});
+
+app.post('/contactlist',function(req,res){
+    console.log(req.body);
 });
 
 
-app.use(express.static(__dirname + "/public"));
+
 app.listen(3000);
 console.log('Server running on port 3000');
