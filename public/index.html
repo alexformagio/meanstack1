@@ -29,13 +29,17 @@
                <td><input class="form-control" type="text" ng-model="contact.name"></td>
                <td><input class="form-control" type="text" ng-model="contact.email"></td>
                <td><input class="form-control" type="text" ng-model="contact.number"></td>
-               <td><button class="btn btn-primary" ng-click="addContact()">Add Contact</button></td>
+               <td><button class="btn btn-primary" ng-click="addContact()" ng-hide="!insertStatus">Add Contact</button></td>
+               <td><button class="btn btn-info" ng-click="updateContact()" ng-hide="insertStatus">Update</button></td>
 
            </tr>
            <tr ng-repeat="contact in contactList">
                <td>{{contact.name}}</td>
                <td>{{contact.email}}</td>
                <td>{{contact.number}}</td>
+               <td><button class="btn btn-danger" ng-click="removeContact(contact._id)">Remove</button></td>
+               <td><button class="btn btn-warning" ng-click="editContact(contact._id)">Edit</button></td>
+
            </tr>
         </tbody>
     </table>
